@@ -37,7 +37,9 @@ public class PostServiceImpl implements PostService {
         post.setName(user.getUsername());
         post.setPostedDate(new Date());
         post.setUserImageId(user.getId());
+
         user.setPosts(post);
+
         postRepository.save(post);
 
         return post;
@@ -72,11 +74,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public String savePostImage(HttpServletRequest request, String fileName) {
-        MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
-        Iterator<String> it = multipartHttpServletRequest.getFileNames();
-
-        MultipartFile multipartFile = multipartHttpServletRequest.getFile(it.next());
+    public String savePostImage(MultipartFile multipartFile, String fileName) {
 
         try {
             byte[] bytes = multipartFile.getBytes();

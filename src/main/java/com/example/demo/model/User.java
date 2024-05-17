@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -18,7 +19,9 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 8116721011712410403L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,9 +47,17 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Post> posts;
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "likedPostUser_id")
     private List<Post> likedPosts;
 
 
+    public void setLikedPost(Post likedPosts) {
+        this.likedPosts.add(likedPosts);
+    }
+
+    public void setPosts(Post post) {
+        this.posts.add(post);
+    }
 }
 
 
