@@ -17,7 +17,7 @@ public interface AccountService {
     void deleteUser(User user);
     void resetPassword(User user);
     List<User> getUserListByUsername(String username);
-    void simpleSave(User user);
+    User simpleSave(User user);
 }
 
 
